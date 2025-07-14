@@ -1,5 +1,5 @@
 ---
-- name: Remove nginx, update cache
+- name: Install nginx, update cache
   hosts: all
   become: true
   tasks:
@@ -7,7 +7,15 @@
       ansible.builtin.apt:
         update_cache: yes
 
-    - name: Remove nginx
+    - name: Install nginx
       ansible.builtin.apt:
-        apt: nginx
-        state: absent
+        name: nginx
+        state: present
+        update_cache: yes
+      notify: restart_nginx
+
+handlers:
+  - name: restart_nginx
+    service:
+      name: nginx
+      state: restarted
