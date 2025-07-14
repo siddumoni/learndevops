@@ -1,0 +1,27 @@
+---
+- name: Update cache | Install nginx | Allow HTTP traffic port 80 | Restart nginx with handlers
+  hosts: all
+  become: true
+  tasks:
+    - name: update_cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Allow HTTP port 80
+      community.general.ufw:
+        rule: Allow
+        port: '80'
+        proto: tcp
+
+    - name: copy_index.html
+      ansible.builtin.copy:
+        src: index.html
+        dest: /var/www/html/
+        owner: ubuntu
+        group: ubuntu
+        mode: '777'
