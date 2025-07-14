@@ -1,0 +1,16 @@
+---
+- name: Remove nginx, update cache
+  hosts: all
+  become: true
+  tasks:
+    - name: update cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Remove nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: absent
+        purge: yes
+        autoremove: yes
+        update_cache: yes
