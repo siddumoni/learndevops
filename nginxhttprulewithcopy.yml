@@ -12,11 +12,6 @@
         name: nginx
         state: present
         
-    - name: Install nginx-common
-      ansible.builtin.apt:
-        name: nginx-common
-        state: present
-
     - name: Allow HTTP port 80
       community.general.ufw:
         rule: Allow
