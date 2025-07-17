@@ -13,7 +13,7 @@
         state: present
         
     - name: Install nginx-common
-      ansible.builtin.apt;
+      ansible.builtin.apt:
         name: nginx-common
         state: present
 
